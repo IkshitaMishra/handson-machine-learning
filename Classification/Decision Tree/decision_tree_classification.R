@@ -1,13 +1,12 @@
-# Decision Tree Classification
-
 # Importing the dataset
 dataset = read.csv('Social_Network_Ads.csv')
 dataset = dataset[3:5]
 
-# Encoding the target feature as factor
+# Encoding Feature
 dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
 
-# Splitting the dataset into the Training set and Test set
+# Split data into the Training set and Test set
+
 # install.packages('caTools')
 library(caTools)
 set.seed(123)
@@ -22,13 +21,13 @@ test_set[-3] = scale(test_set[-3])
 # Fitting Decision Tree Classification to the Training set
 # install.packages('rpart')
 library(rpart)
-classifier = rpart(formula = Purchased ~ .,
-                   data = training_set)
+classifier = rpart(formula = Purchased ~ ., data = training_set)
 
-# Predicting the Test set results
+
+# Predict Test Results
 y_pred = predict(classifier, newdata = test_set[-3], type = 'class')
 
-# Making the Confusion Matrix
+# Making the Confusion Matrix for TP,TN,FP,FN
 cm = table(test_set[, 3], y_pred)
 
 # Visualising the Training set results
